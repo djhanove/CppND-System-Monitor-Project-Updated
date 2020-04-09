@@ -4,6 +4,11 @@
 #include <fstream>
 #include <regex>
 #include <string>
+#include <unistd.h>
+#include <dirent.h>
+#include <vector>
+#include <iostream>
+
 
 namespace LinuxParser {
 // Paths
@@ -40,11 +45,11 @@ enum CPUStates {
   kGuest_,
   kGuestNice_
 };
-std::vector<std::string> CpuUtilization();
+std::vector<long> CpuUtilization();
 long Jiffies();
-long ActiveJiffies();
-long ActiveJiffies(int pid);
-long IdleJiffies();
+long ActiveJiffies(long user, long nice, long system, long irq, long softirq, long steal);
+float PID_CPU_Utilization(int pid);
+long IdleJiffies(long idle, long iowait);
 
 // Processes
 std::string Command(int pid);
